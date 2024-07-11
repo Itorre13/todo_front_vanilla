@@ -51,10 +51,20 @@ class Tarea{
     }
     actualizarTexto(){
         if(this.editando){
-            console.log("intentar guardar");
+           let textoTemporal = this.DOM.children[1].value.trim();
+
+           if(textoTemporal != "" & textoTemporal != this.texto){
+                this.texto = textoTemporal;
+           }
+        
+           this.DOM.children[1].classList.remove("visible");
+           this.DOM.children[0].innerText = this.texto;
+           this.DOM.children[0].classList.add("visible");
+           this.DOM.children[2].innerText = "editar";
+ 
         }else{
             this.DOM.children[0].classList.remove("visible");
-            this.DOM.children[1].setAttribute("value",this.texto);
+            this.DOM.children[1].value = this.texto; //con setAttribute("value",this.texto) NO FUNCIONA. Hay que hacerlo de esa manera
             this.DOM.children[1].classList.add("visible");
             this.DOM.children[2].innerText = "guardar";
         }
