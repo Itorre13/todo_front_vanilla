@@ -56,7 +56,7 @@ class Tarea{
            let textoTemporal = this.DOM.children[1].value.trim(); // extraemos el texto temporal del input
 
            if(textoTemporal != "" & textoTemporal != this.texto){ // preguntamos si en efecto el usuario lo ha editado y la edición es correcta. No lo has dejado en blanco y has cambiado las cosas
-            let {error} = await fetch("http://localhost:4000/tareas/actualizar/1/" + this.id,{ // el error lo quiero de esperar de esta llamada a fetch 
+            let {error} = await fetch("https://api-todo-postgres-a32c.onrender.com/tareas/actualizar/1/" + this.id,{ // el error lo quiero de esperar de esta llamada a fetch 
                     method : "PUT",
                     body : JSON.stringify({ tarea : textoTemporal }),
                     headers : {
@@ -87,7 +87,7 @@ class Tarea{
 
     actualizarEstado(){
         return new Promise((ok,ko) => {
-            fetch("http://localhost:4000/tareas/actualizar/2/" + this.id, {// 2 es la operación del estado. Concatenamos el id xq siempre va al final de la url
+            fetch("https://api-todo-postgres-a32c.onrender.com/tareas/actualizar/2/" + this.id, {// 2 es la operación del estado. Concatenamos el id xq siempre va al final de la url
                 method : "PUT"
             })
             .then(respuesta => respuesta.json())
@@ -97,7 +97,7 @@ class Tarea{
         });
     }    
     borrarTarea(){
-        fetch("http://localhost:4000/tareas/borrar/" + this.id, {// concatenamos el id xq siempre va al final de la url
+        fetch("https://api-todo-postgres-a32c.onrender.com/tareas/borrar/" + this.id, {// concatenamos el id xq siempre va al final de la url
             method : "DELETE" // sólo metodo porque la informacion del cuerpo de la peticion y las cabeceras va en la URL
             })
             .then(respuesta => respuesta.json())

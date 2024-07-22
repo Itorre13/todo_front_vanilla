@@ -3,7 +3,7 @@ const formulario = document.querySelector("form");
 const inputTexto = document.querySelector('form input[type="text"]');
 
 // CARGA INICIAL DE LOS DATOS
-fetch("http://localhost:4000/tareas")
+fetch("https://api-todo-postgres-a32c.onrender.com/tareas")
 .then(respuesta => respuesta.json())
 .then(tareas => {
     tareas.sort((a,b) => a.id - b.id).forEach(({id,tarea,terminada}) => { // esto las ordena descendientemente y devuelve al array ordenado. Y por cada una de esas tareas con el forEach queremos hacer algo
@@ -19,7 +19,7 @@ formulario.addEventListener("submit", evento => {
         
         let tarea = inputTexto.value.trim();
 
-        fetch("http://localhost:4000/tareas/nueva", {
+        fetch("https://api-todo-postgres-a32c.onrender.com/tareas/nueva", {
             method : "POST",
             body : JSON.stringify({tarea}),
             headers : {
