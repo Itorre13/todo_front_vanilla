@@ -3,7 +3,7 @@ const formulario = document.querySelector("form");
 const inputTexto = document.querySelector('form input[type="text"]');
 
 // CARGA INICIAL DE LOS DATOS
-fetch("https://localhost:4000/tareas")
+fetch("https://api-todo-postgres-a32c.onrender.com/tareas")
 .then(respuesta => respuesta.json())
 .then(tareas => {
     tareas.sort((a,b) => a.id - b.id).forEach(({id,tarea,terminada}) => { // esto las ordena ascendentemente y devuelve el array ordenado. Y apartir de ese array le diremos que queremos hacer algo. Que por cada una de esas tareas con el forEach queremos hacer algo
@@ -19,7 +19,7 @@ formulario.addEventListener("submit", evento => {
         
         let tarea = inputTexto.value.trim();
 
-        fetch("https://localhost:4000/tareas/nueva", {
+        fetch("https://api-todo-postgres-a32c.onrender.com/tareas/nueva", {
             method : "POST",
             body : JSON.stringify({tarea}),
             headers : {
@@ -29,7 +29,7 @@ formulario.addEventListener("submit", evento => {
         .then(respuesta => respuesta.json())
         .then(({id,error}) => { // las dos posibles propiedades de esta respuesta son id y error. Si todo salió bien es id y si algo falló es error
             if(!error){ // si no hay error
-                new Tarea(id,tarea,false,contTareas);
+                new Tarea(id,tarea,false,contTareas); // crea una nueva tarea con el id que nos acaba de llegar, la tarea que le envíe, false porque se creará false en la base de datos y contTareas
                 return inputTexto.value = ""; // para que se limpie el campo
             }
             console.log("..mostrar error al usuario");
